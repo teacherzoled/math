@@ -381,33 +381,82 @@
             <div class="lesson-section border-quiz">
                 <div class="section-header header-quiz">Quiz: Final Number Challenge!</div>
                 <div class="section-content activity-box-content">
-                    <p>Test your knowledge on all the types of numbers we learned this week!</p>
-                    <div id="final-challenge" class="space-y-6 mt-6 text-left">
-                        <div>
-                            <label for="q1" class="block font-semibold mb-2">1. Which of these is a prime number? (2, 4, 6, 9)</label>
-                            <input type="number" id="q1" data-answer="2" placeholder="Enter the number" class="quiz-input">
-                            <div id="feedback-q1" class="text-sm mt-1"></div>
+                    <form action="https://formspree.io/f/xrbandnz" method="POST">
+                        <p>Test your knowledge on all the types of numbers we learned this week!</p>
+                        <div id="final-challenge" class="space-y-6 mt-6 text-left">
+                            <div>
+                                <label for="student-name" class="block font-semibold mb-2">Full Name:</label>
+                                <input type="text" id="student-name" name="student_name" placeholder="Enter your full name" class="quiz-input" required>
+                            </div>
+                            <hr/>
+                            <div>
+                                <label for="q1" class="block font-semibold mb-2">1. Which of these is a prime number? (2, 4, 6, 9)</label>
+                                <input type="hidden" name="question_1" value="Which of these is a prime number? (2, 4, 6, 9)">
+                                <input type="number" id="q1" name="answer_1" data-answer="2" placeholder="Enter the number" class="quiz-input">
+                                <div id="feedback-q1" class="text-sm mt-1"></div>
+                            </div>
+                            <div>
+                                <label for="q2" class="block font-semibold mb-2">2. A diver is 25 meters below sea level. What integer represents this depth?</label>
+                                <input type="hidden" name="question_2" value="A diver is 25 meters below sea level. What integer represents this depth?">
+                                <input type="number" id="q2" name="answer_2" data-answer="-25" placeholder="Enter the integer" class="quiz-input">
+                                <div id="feedback-q2" class="text-sm mt-1"></div>
+                            </div>
+                            <div>
+                                <label for="q3" class="block font-semibold mb-2">3. Is the number 51 prime or composite?</label>
+                                <input type="hidden" name="question_3" value="Is the number 51 prime or composite?">
+                                <input type="text" id="q3" name="answer_3" data-answer="composite" placeholder="prime or composite" class="quiz-input">
+                                <div id="feedback-q3" class="text-sm mt-1"></div>
+                            </div>
+                            <div>
+                                <label for="q4" class="block font-semibold mb-2">4. What is the smallest whole number?</label>
+                                <input type="hidden" name="question_4" value="What is the smallest whole number?">
+                                <input type="number" id="q4" name="answer_4" data-answer="0" placeholder="Enter the number" class="quiz-input">
+                                <div id="feedback-q4" class="text-sm mt-1"></div>
+                            </div>
+                            <div>
+                                <label for="q5" class="block font-semibold mb-2">5. Which of these is a composite number? (17, 23, 29, 33)</label>
+                                <input type="hidden" name="question_5" value="Which of these is a composite number? (17, 23, 29, 33)">
+                                <input type="number" id="q5" name="answer_5" data-answer="33" placeholder="Enter the number" class="quiz-input">
+                                <div id="feedback-q5" class="text-sm mt-1"></div>
+                            </div>
+                            <div>
+                                <label for="q6" class="block font-semibold mb-2">6. A company made a profit of $5000. What integer represents this amount?</label>
+                                <input type="hidden" name="question_6" value="A company made a profit of $5000. What integer represents this amount?">
+                                <input type="number" id="q6" name="answer_6" data-answer="5000" placeholder="Enter the integer" class="quiz-input">
+                                <div id="feedback-q6" class="text-sm mt-1"></div>
+                            </div>
+                            <div>
+                                <label for="q7" class="block font-semibold mb-2">7. Is 0 an even or odd number?</label>
+                                <input type="hidden" name="question_7" value="Is 0 an even or odd number?">
+                                <input type="text" id="q7" name="answer_7" data-answer="even" placeholder="even or odd" class="quiz-input">
+                                <div id="feedback-q7" class="text-sm mt-1"></div>
+                            </div>
+                            <div>
+                                <label for="q8" class="block font-semibold mb-2">8. What is the only even prime number?</label>
+                                <input type="hidden" name="question_8" value="What is the only even prime number?">
+                                <input type="number" id="q8" name="answer_8" data-answer="2" placeholder="Enter the number" class="quiz-input">
+                                <div id="feedback-q8" class="text-sm mt-1"></div>
+                            </div>
+                            <div>
+                                <label for="q9" class="block font-semibold mb-2">9. A submarine is at -150 meters. It descends another 50 meters. What is its new depth?</label>
+                                <input type="hidden" name="question_9" value="A submarine is at -150 meters. It descends another 50 meters. What is its new depth?">
+                                <input type="number" id="q9" name="answer_9" data-answer="-200" placeholder="Enter the integer" class="quiz-input">
+                                <div id="feedback-q9" class="text-sm mt-1"></div>
+                            </div>
+                            <div>
+                                <label for="q10" class="block font-semibold mb-2">10. Is 1 a natural number, a whole number, or both?</label>
+                                <input type="hidden" name="question_10" value="Is 1 a natural number, a whole number, or both?">
+                                <input type="text" id="q10" name="answer_10" data-answer="both" placeholder="natural, whole, or both" class="quiz-input">
+                                <div id="feedback-q10" class="text-sm mt-1"></div>
+                            </div>
+                            <input type="hidden" id="final-score" name="final_score" value="">
                         </div>
-                        <div>
-                            <label for="q2" class="block font-semibold mb-2">2. A diver is 25 meters below sea level. What integer represents this depth?</label>
-                            <input type="number" id="q2" data-answer="-25" placeholder="Enter the integer" class="quiz-input">
-                            <div id="feedback-q2" class="text-sm mt-1"></div>
+                        <div class="mt-8 text-center">
+                            <button id="checkQuizBtn" type="button" class="btn btn-primary">Check My Report</button>
+                            <button id="submitQuizBtn" type="submit" class="btn btn-challenge hidden mt-4">Submit My Score</button>
+                            <div id="quizResult" class="feedback"></div>
                         </div>
-                        <div>
-                            <label for="q3" class="block font-semibold mb-2">3. Is the number 51 prime or composite?</label>
-                            <input type="text" id="q3" data-answer="composite" placeholder="prime or composite" class="quiz-input">
-                            <div id="feedback-q3" class="text-sm mt-1"></div>
-                        </div>
-                        <div>
-                            <label for="q4" class="block font-semibold mb-2">4. What is the smallest whole number?</label>
-                            <input type="number" id="q4" data-answer="0" placeholder="Enter the number" class="quiz-input">
-                            <div id="feedback-q4" class="text-sm mt-1"></div>
-                        </div>
-                    </div>
-                    <div class="mt-8 text-center">
-                        <button id="submitQuizBtn" class="btn btn-primary">Check My Report</button>
-                        <div id="quizResult" class="feedback"></div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -626,42 +675,57 @@
             });
 
             // --- Final Challenge ---
+            const checkQuizBtn = document.getElementById('checkQuizBtn');
             const submitQuizBtn = document.getElementById('submitQuizBtn');
-            const quizInputs = document.querySelectorAll('.quiz-input');
+            const quizInputs = document.querySelectorAll('#final-challenge .quiz-input[data-answer]');
             const quizResult = document.getElementById('quizResult');
-            submitQuizBtn.addEventListener('click', () => {
+            const finalScoreInput = document.getElementById('final-score');
+
+            checkQuizBtn.addEventListener('click', () => {
                 let correctCount = 0;
                 quizInputs.forEach(input => {
                     const questionId = input.id;
                     const feedbackEl = document.getElementById(`feedback-${questionId}`);
                     const userAnswer = input.value.trim().toLowerCase();
                     const correctAnswer = input.dataset.answer.toLowerCase();
+
+                    // Special case for question 10 to accept more answers
+                    let isCorrect = userAnswer === correctAnswer;
+                    if (questionId === 'q10' && (userAnswer === 'natural and whole' || userAnswer === 'whole and natural')) {
+                        isCorrect = true;
+                    }
+
                     input.style.animation = 'none';
                     void input.offsetWidth;
 
-                    if (userAnswer === correctAnswer) {
+                    if (isCorrect) {
                         correctCount++;
                         input.style.borderColor = '#22c55e';
                         input.style.animation = 'flashGreen 0.5s ease-out';
                         feedbackEl.textContent = 'Correct!';
                         feedbackEl.style.color = '#166534';
                     } else {
-                        input.style.borderColor = '#ef4444';
+                        input.style.borderColor = '#ef4444'; // red-500
                         input.style.animation = 'shake 0.5s ease-out, flashRed 0.5s ease-out';
                         feedbackEl.textContent = `Incorrect. The correct answer is ${correctAnswer}.`;
                         feedbackEl.style.color = '#991b1b';
                     }
                 });
+
+                const scoreText = `${correctCount}/${quizInputs.length}`;
+                finalScoreInput.value = scoreText; // Set score for form submission
+
                 quizResult.classList.remove('feedback-correct', 'feedback-incorrect');
                 quizResult.classList.add('visible');
                 if (correctCount === quizInputs.length) {
                     quizResult.classList.add('feedback-correct');
-                    quizResult.textContent = `Excellent! You got ${correctCount}/${quizInputs.length} correct. You have mastered this lesson!`;
+                    quizResult.textContent = `Excellent! You got ${scoreText} correct. You have mastered this lesson!`;
                     createConfetti();
                 } else {
                     quizResult.classList.add('feedback-incorrect');
-                    quizResult.textContent = `Good effort! You got ${correctCount}/${quizInputs.length} correct. Please correct the highlighted answers to complete the lesson.`;
+                    quizResult.textContent = `Good effort! You got ${scoreText} correct. Review your answers and then click submit.`;
                 }
+                submitQuizBtn.classList.remove('hidden'); // Show the submit button
             });
 
             // Initial load
