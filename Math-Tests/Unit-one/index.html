@@ -68,6 +68,11 @@
                 background-color: transparent !important;
                 padding: 4px 0 !important;
             }
+            /* Ensure WP answers are visible on print */
+            .wp-input.has-value {
+                color: #000 !important;
+                text-shadow: none !important;
+            }
             .solution {
                 display: none !important;
             }
@@ -103,6 +108,16 @@
         .border-l-q-teal { border-left-color: #5eead4; }
         .wp-input {
             background-color: #f8fafc; /* slate-50 */
+        }
+        /* Make text in answered WP inputs transparent unless hovered/focused */
+        .wp-input.has-value:not(:focus) {
+            color: transparent;
+            text-shadow: 0 0 8px rgba(0,0,0,0.5); /* Optional: blur effect */
+        }
+        .wp-input.has-value:hover,
+        .wp-input.has-value:focus {
+            color: #1e293b; /* slate-800 */
+            text-shadow: none;
         }
     </style>
 </head>
@@ -331,27 +346,28 @@
     </div>
 
     <script>
+        // --- DATA ---
         const quizData = [
-            { question: "1. Use words to write 908,064,000.", options: ["nine hundred eight thousand, sixty-four.","nine hundred eight million, sixty-four.","nine hundred eight million, sixty-four thousand.","ninety-eight million, sixty-four thousand."], answer: "nine hundred eight million, sixty-four thousand.", points: 2 },
-            { question: "2. In which of the following numbers does 8 have the greatest value?", options: ["4,891", "8,219", "9,287", "9,998"], answer: "8,219", points: 2 },
-            { question: "3. Which of the following numbers is a prime number?", options: ["9", "8", "21", "19"], answer: "19", points: 2 },
-            { question: "4. What is the value of 6 in the number 1,063,292?", options: ["Six thousand", "Sixty thousand", "Sixty-three thousand", "Seven hundred thousand"], answer: "Sixty thousand", points: 2 },
-            { question: "5. 613.159 rounded to the nearest hundredths is:", options: ["600.12", "613.16", "613.29", "613.50"], answer: "613.16", points: 2 },
-            { question: "6. What is the place value of the 3 in the number 2.347?", options: ["tenths", "hundredths", "tens", "hundreds"], answer: "tenths", points: 2 },
-            { question: "7. Based on the number 125,389, what is the difference in value between the 5 and the 8?", options: ["3", "13", "4,920", "4,992"], answer: "4,920", points: 3 },
-            { question: "8. The sun's temperature is 15,400,000°C. This is written as:", options: ["fifteen million, four thousand degrees celsius.","fifteen thousand, four hundred degrees celsius.","fifteen million, four hundred thousand degrees celsius.","fifteen hundred thousand, four hundred degrees celsius."], answer: "fifteen million, four hundred thousand degrees celsius.", points: 2 },
-            { question: "9. Round 36.9763 to the nearest hundredth.", options: ["36.90", "36.97", "36.98", "37.00"], answer: "36.98", points: 2 },
-            { question: "10. Which of the following is a composite number?", options: ["424", "113", "53", "97"], answer: "424", points: 2 },
-            { question: "11. One hundred thirty-six of the two hundred sixty students in the school were boys. How many girls were there in the school?", options: ["124", "134", "136", "260"], answer: "124", points: 2 },
-            { question: "12. How would seven hundredths be written as a decimal number?", options: ["0.007", "0.07", "0.7", "700"], answer: "0.07", points: 2 },
-            { question: "13. What is the only even-prime number?", options: ["1", "2", "3", "4"], answer: "2", points: 2 },
-            { question: "14. What is the smallest composite number?", options: ["1", "2", "3", "4"], answer: "4", points: 2 },
-            { question: "15. When you add 15 and 15, the sum is an:", options: ["Odd number", "Even number"], answer: "Even number", points: 1 },
-            { question: "16. A whole number is given as 421,000 to the nearest 1000. What would be the smallest possible value of the actual number?", options: ["421,001", "421,099", "421,499", "420,500"], answer: "420,500", points: 3 },
-            { question: "17. What is the standard form of the following number? (5 x 10,000) + (7 x 1)", options: ["5,700", "5,070", "5,007", "50,007"], answer: "50,007", points: 2 },
-            { question: "18. The number 123,487 rounded to 1 significant figure is:", options: ["120,000", "100,000", "123,000", "123,500"], answer: "100,000", points: 3 },
-            { question: "19. Which of the following list of factors are the factors of 12?", options: ["1, 2, 3, 4", "1, 4, 5, 6", "1, 2, 3, 4, 6, 12", "1, 12"], answer: "1, 2, 3, 4, 6, 12", points: 2 },
-            { question: "20. Is the expression below true or false? 0.307 > 0.31", options: ["True", "False"], answer: "False", points: 2 }
+            { id: 'mc1', question: "1. Use words to write 908,064,000.", options: ["nine hundred eight thousand, sixty-four.","nine hundred eight million, sixty-four.","nine hundred eight million, sixty-four thousand.","ninety-eight million, sixty-four thousand."], answer: "nine hundred eight million, sixty-four thousand.", points: 2 },
+            { id: 'mc2', question: "2. In which of the following numbers does 8 have the greatest value?", options: ["4,891", "8,219", "9,287", "9,998"], answer: "8,219", points: 2 },
+            { id: 'mc3', question: "3. Which of the following numbers is a prime number?", options: ["9", "8", "21", "19"], answer: "19", points: 2 },
+            { id: 'mc4', question: "4. What is the value of 6 in the number 1,063,292?", options: ["Six thousand", "Sixty thousand", "Sixty-three thousand", "Seven hundred thousand"], answer: "Sixty thousand", points: 2 },
+            { id: 'mc5', question: "5. 613.159 rounded to the nearest hundredths is:", options: ["600.12", "613.16", "613.29", "613.50"], answer: "613.16", points: 2 },
+            { id: 'mc6', question: "6. What is the place value of the 3 in the number 2.347?", options: ["tenths", "hundredths", "tens", "hundreds"], answer: "tenths", points: 2 },
+            { id: 'mc7', question: "7. Based on the number 125,389, what is the difference in value between the 5 and the 8?", options: ["3", "13", "4,920", "4,992"], answer: "4,920", points: 3 },
+            { id: 'mc8', question: "8. The sun's temperature is 15,400,000°C. This is written as:", options: ["fifteen million, four thousand degrees celsius.","fifteen thousand, four hundred degrees celsius.","fifteen million, four hundred thousand degrees celsius.","fifteen hundred thousand, four hundred degrees celsius."], answer: "fifteen million, four hundred thousand degrees celsius.", points: 2 },
+            { id: 'mc9', question: "9. Round 36.9763 to the nearest hundredth.", options: ["36.90", "36.97", "36.98", "37.00"], answer: "36.98", points: 2 },
+            { id: 'mc10', question: "10. Which of the following is a composite number?", options: ["424", "113", "53", "97"], answer: "424", points: 2 },
+            { id: 'mc11', question: "11. One hundred thirty-six of the two hundred sixty students in the school were boys. How many girls were there in the school?", options: ["124", "134", "136", "260"], answer: "124", points: 2 },
+            { id: 'mc12', question: "12. How would seven hundredths be written as a decimal number?", options: ["0.007", "0.07", "0.7", "700"], answer: "0.07", points: 2 },
+            { id: 'mc13', question: "13. What is the only even-prime number?", options: ["1", "2", "3", "4"], answer: "2", points: 2 },
+            { id: 'mc14', question: "14. What is the smallest composite number?", options: ["1", "2", "3", "4"], answer: "4", points: 2 },
+            { id: 'mc15', question: "15. When you add 15 and 15, the sum is an:", options: ["Odd number", "Even number"], answer: "Even number", points: 1 },
+            { id: 'mc16', question: "16. A whole number is given as 421,000 to the nearest 1000. What would be the smallest possible value of the actual number?", options: ["421,001", "421,099", "421,499", "420,500"], answer: "420,500", points: 3 },
+            { id: 'mc17', question: "17. What is the standard form of the following number? (5 x 10,000) + (7 x 1)", options: ["5,700", "5,070", "5,007", "50,007"], answer: "50,007", points: 2 },
+            { id: 'mc18', question: "18. The number 123,487 rounded to 1 significant figure is:", options: ["120,000", "100,000", "123,000", "123,500"], answer: "100,000", points: 3 },
+            { id: 'mc19', question: "19. Which of the following list of factors are the factors of 12?", options: ["1, 2, 3, 4", "1, 4, 5, 6", "1, 2, 3, 4, 6, 12", "1, 12"], answer: "1, 2, 3, 4, 6, 12", points: 2 },
+            { id: 'mc20', question: "20. Is the expression below true or false? 0.307 > 0.31", options: ["True", "False"], answer: "False", points: 2 }
         ];
 
         const wordProblemData = [
@@ -425,6 +441,7 @@
             solution25: `Refined Petroleum: <strong>$119,000,000</strong> | Rolled Tobacco: <strong>$59,100,000</strong> | Recreational Boats: <strong>$32,800,000</strong> | Passenger and Cargo Ships: <strong>$21,500,000</strong> | Ethers: <strong>$17,500,000</strong>`
         };
 
+        // --- DOM ELEMENTS ---
         const quizForm = document.getElementById('quizForm');
         const resultsContainer = document.getElementById('results');
         const wordProblemsContainer = document.getElementById('wordProblems');
@@ -434,32 +451,59 @@
         const progressBar = document.getElementById('progressBar');
         let totalFields = 0;
 
+        // --- STATE ---
         const mcMaxScore = quizData.reduce((sum, q) => sum + q.points, 0); // Total possible MC score
         const wpMaxScore = wordProblemData.reduce((sum, p) => sum + p.points, 0); // Total possible score for all word problems
         let mcScore = 0;
         let wpScore = 0;
 
+        let testIsComplete = false; // Flag to disable unload warnings after completion
+        // --- FUNCTIONS ---
+        /**
+         * Shuffles an array in place using the Fisher-Yates algorithm.
+         * @param {Array} array The array to shuffle.
+         */
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
         function buildQuiz() {
+            // Check for a saved question order in localStorage
+            const savedState = getSavedState();
+            if (savedState && savedState.mcOrder) {
+                // If there's a saved order, sort the quizData to match it
+                quizData.sort((a, b) => savedState.mcOrder.indexOf(a.id) - savedState.mcOrder.indexOf(b.id));
+            } else {
+                // Otherwise, shuffle for a new test
+                shuffleArray(quizData); // Randomize the order of questions
+            }
+
             const colorClasses = ['border-l-q-blue', 'border-l-q-purple', 'border-l-q-pink', 'border-l-q-teal'];
             const output = [];
             quizData.forEach((currentQuestion, questionNumber) => {
                 const options = [];
-                currentQuestion.options.forEach(option => {
+                const shuffledOptions = [...currentQuestion.options];
+                shuffleArray(shuffledOptions); // Randomize the order of options for this question
+
+                shuffledOptions.forEach(option => {
                     options.push(
                         `<label class="flex items-center space-x-3 p-3 rounded-lg hover:bg-slate-100 cursor-pointer transition-colors duration-200">
-                            <input type="radio" name="question${questionNumber}" value="${option}" class="h-5 w-5 text-blue-600 focus:ring-blue-500 border-slate-300">
+                            <input type="radio" name="question-${currentQuestion.id}" value="${option}" class="h-5 w-5 text-blue-600 focus:ring-blue-500 border-slate-300">
                             <span class="text-slate-700">${option}</span>
                         </label>`
                     );
                 });
                 const colorClass = colorClasses[questionNumber % colorClasses.length];
                 output.push(
-                    `<div class="question-container p-4 rounded-lg border border-slate-200 border-l-4 ${colorClass}" id="q-container-${questionNumber}">
+                    `<div class="question-container p-4 rounded-lg border border-slate-200 border-l-4 ${colorClass}" id="q-container-${currentQuestion.id}">
                         <div class="flex justify-between items-start">
                             <p class="font-semibold text-lg mb-4 text-slate-900">${currentQuestion.question}</p>
                             <span class="font-bold text-slate-500 text-lg">${currentQuestion.points} Pts</span>
                         </div>
-                        <div class="space-y-2">${options.join('')}</div>
+                        <div class="question-body space-y-2">${options.join('')}</div>
                         <div id="feedback-${questionNumber}" class="mt-3 text-sm feedback-text"></div>
                     </div>`
                 );
@@ -485,11 +529,11 @@
                 answeredFields++;
             }
             // 2. Check MC questions
-            for (let i = 0; i < quizData.length; i++) {
-                if (document.querySelector(`input[name=question${i}]:checked`)) {
+            quizData.forEach(q => {
+                if (document.querySelector(`input[name=question-${q.id}]:checked`)) {
                     answeredFields++;
                 }
-            }
+            });
             // 3. Check WP inputs
             wordProblemsContainer.querySelectorAll('input[type="text"], select.wp-input').forEach(input => {
                 if (input.value.trim() !== '') answeredFields++;
@@ -502,10 +546,10 @@
         function gradeMC() {
             mcScore = 0;
             // 1. Grade Multiple Choice
-            quizData.forEach((currentQuestion, questionNumber) => {
-                const questionContainer = document.getElementById(`q-container-${questionNumber}`);
-                const feedbackContainer = document.getElementById(`feedback-${questionNumber}`);
-                const selector = `input[name=question${questionNumber}]:checked`;
+            quizData.forEach(currentQuestion => {
+                const questionContainer = document.getElementById(`q-container-${currentQuestion.id}`);
+                const feedbackContainer = document.getElementById(`feedback-${currentQuestion.id}`);
+                const selector = `input[name=question-${currentQuestion.id}]:checked`;
                 const userAnswer = (document.querySelector(selector) || {}).value;
                 questionContainer.classList.remove('correct', 'incorrect');
                 feedbackContainer.innerHTML = '';
@@ -523,7 +567,11 @@
             });
 
             // Disable MC section
-            quizForm.querySelectorAll('input').forEach(input => input.disabled = true);
+            document.querySelectorAll('#quizForm .question-container').forEach(qc => {
+                qc.classList.remove('is-reviewing'); // Ensure all are collapsed
+                qc.style.cursor = 'default'; // Remove pointer cursor after grading
+            });
+            quizForm.querySelectorAll('input[type=radio]').forEach(input => input.disabled = true);
             gradeMCBtn.disabled = true;
             alert(`You scored ${mcScore} out of ${mcMaxScore} on the multiple choice section.`);
             checkWPCompletion(); // Check if WP can be enabled now
@@ -532,8 +580,8 @@
         function gradeWordProblems() {
             wpScore = 0;
             // 2. Grade Word Problems
-            wordProblemData.forEach(problem => {
-                const problemContainer = document.getElementById(problem.id + '-inputs') || document.getElementById(problem.id + '-table');
+            wordProblemData.forEach(problem => { // This logic was already correct, no changes needed here.
+                const problemContainer = document.getElementById(problem.id) || document.getElementById(problem.id + '-inputs') || document.getElementById(problem.id + '-table');
                 if (!problemContainer) return;
 
                 if (!problem.isSubjective) {
@@ -591,20 +639,25 @@
             }
 
             // 5. Freeze the entire test
-            wordProblemsContainer.querySelectorAll('input').forEach(input => input.disabled = true);
+            wordProblemsContainer.querySelectorAll('.question-container').forEach(qc => {
+                qc.classList.remove('is-reviewing');
+                qc.style.cursor = 'default';
+            });
+            wordProblemsContainer.querySelectorAll('input, select').forEach(input => input.disabled = true);
             gradeWPBtn.disabled = true;
+            testIsComplete = true; // Test is finished, allow refresh without warning
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function checkMCCompletion() {
             const isNameFilled = studentNameInput.value.trim() !== '';
             let answeredCount = 0;
-            for (let i = 0; i < quizData.length; i++) {
-                const selector = `input[name=question${i}]:checked`;
+            quizData.forEach(q => {
+                const selector = `input[name=question-${q.id}]:checked`;
                 if (document.querySelector(selector)) {
                     answeredCount++;
                 }
-            }
+            });
             gradeMCBtn.disabled = !(answeredCount === quizData.length && isNameFilled);
         }
 
@@ -632,8 +685,8 @@
             console.log("Teacher mode activated. Populating answers...");
 
             // 2. Fill in Multiple Choice answers
-            quizData.forEach((currentQuestion, questionNumber) => {
-                const selector = `input[name=question${questionNumber}][value="${currentQuestion.answer}"]`;
+            quizData.forEach(currentQuestion => {
+                const selector = `input[name=question-${currentQuestion.id}][value="${currentQuestion.answer}"]`;
                 const correctRadio = document.querySelector(selector);
                 if (correctRadio) {
                     correctRadio.checked = true;
@@ -667,8 +720,65 @@
             gradeWordProblems();
         }
 
+        // --- PROGRESS SAVING & LOADING ---
+        function getSavedState() {
+            const savedStateJSON = localStorage.getItem('mathTestProgress');
+            return savedStateJSON ? JSON.parse(savedStateJSON) : null;
+        }
+
+        function saveState() {
+            if (testIsComplete) return; // Don't save after completion
+
+            const mcAnswers = {};
+            quizData.forEach(q => {
+                const selector = `input[name=question-${q.id}]:checked`;
+                const checkedInput = document.querySelector(selector);
+                if (checkedInput) {
+                    mcAnswers[q.id] = checkedInput.value;
+                }
+            });
+
+            const wpAnswers = {};
+            wordProblemsContainer.querySelectorAll('.wp-input').forEach(input => {
+                if (input.value.trim() !== '') {
+                    wpAnswers[input.id] = input.value;
+                }
+            });
+
+            const state = {
+                studentName: studentNameInput.value,
+                mcOrder: quizData.map(q => q.id),
+                mcAnswers: mcAnswers,
+                wpAnswers: wpAnswers,
+                isMCGraded: gradeMCBtn.disabled
+            };
+
+            localStorage.setItem('mathTestProgress', JSON.stringify(state));
+        }
+
+        function loadState() {
+            const savedState = getSavedState();
+            if (!savedState) return;
+
+            studentNameInput.value = savedState.studentName || '';
+
+            // Restore MC answers
+            for (const qId in savedState.mcAnswers) {
+                const answer = savedState.mcAnswers[qId];
+                const radio = document.querySelector(`input[name="question-${qId}"][value="${CSS.escape(answer)}"]`);
+                if (radio) radio.checked = true;
+            }
+
+            // Restore WP answers
+            for (const inputId in savedState.wpAnswers) {
+                const inputEl = document.getElementById(inputId);
+                if (inputEl) inputEl.value = savedState.wpAnswers[inputId];
+            }
+        }
+
+        // --- INITIALIZATION & EVENT LISTENERS ---
         buildQuiz();
-        initializeProgressBar(); // Set up the progress bar after questions are built
+        initializeProgressBar(); // Set up the progress bar, values will be updated on load
         gradeMCBtn.addEventListener('click', () => {
             if (window.confirm("Are you sure you want to grade the multiple choice section? You will not be able to change your answers.")) {
                 gradeMC();
@@ -679,15 +789,44 @@
                 gradeWordProblems();
             }
         });
-        quizForm.addEventListener('change', () => {
+        quizForm.addEventListener('change', (e) => {
+            saveState(); // Save progress on any change
+            // If a radio button was changed, auto-scroll to the next question
+            if (e.target.type === 'radio') {
+                const currentQuestionContainer = e.target.closest('.question-container');
+                if (currentQuestionContainer) {
+                    // Use a short timeout to ensure the UI has updated before we scroll.
+                    setTimeout(() => {
+                        const nextElement = currentQuestionContainer.nextElementSibling;
+                        if (nextElement && nextElement.classList.contains('question-container')) {
+                            // Scroll the top of the next question into view, with a small offset for the sticky progress bar.
+                            const elementPosition = nextElement.getBoundingClientRect().top;
+                            const offsetPosition = elementPosition + window.pageYOffset - 50; // 50px offset
+                            window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+                        }
+                    }, 100); // 100ms delay
+                }
+            }
             checkMCCompletion();
             updateProgressBar();
         });
         studentNameInput.addEventListener('input', () => {
             checkMCCompletion();
+            saveState();
             updateProgressBar();
         });
-        wordProblemsContainer.addEventListener('input', () => { checkWPCompletion(); updateProgressBar(); });
+        wordProblemsContainer.addEventListener('input', (e) => {
+            saveState();
+            // Add/remove 'has-value' class for transparent text effect
+            if (e.target.classList.contains('wp-input')) {
+                if (e.target.value.trim() !== '') {
+                    e.target.classList.add('has-value');
+                } else {
+                    e.target.classList.remove('has-value');
+                }
+            }
+            checkWPCompletion(); updateProgressBar(); 
+        });
 
         // --- Other Buttons ---
         const printBtn = document.getElementById('printBtn');
@@ -698,9 +837,33 @@
 
         // Check for teacher mode on page load
         window.addEventListener('load', () => {
+            // This logic runs after the page and all resources are fully loaded.
             const urlParams = new URLSearchParams(window.location.search);
             if (urlParams.get('teacher') === 'true') {
+                // If in teacher mode, clear any student state and run.
+                localStorage.removeItem('mathTestProgress');
                 runTeacherMode();
+            } else {
+                // Otherwise, load the student's saved state.
+                loadState();
+            }
+
+            // After loading state or running teacher mode, update the UI.
+            wordProblemsContainer.querySelectorAll('.wp-input').forEach(input => {
+                if (input.value) {
+                    input.dispatchEvent(new Event('input', { bubbles: true }));
+                }
+            });
+            updateProgressBar();
+            checkMCCompletion();
+            checkWPCompletion();
+        });
+
+        // Warn user before they refresh the page
+        window.addEventListener('beforeunload', (e) => {
+            if (!testIsComplete) {
+                e.preventDefault();
+                e.returnValue = ''; // Standard way to trigger the browser's confirmation dialog
             }
         });
     </script>
