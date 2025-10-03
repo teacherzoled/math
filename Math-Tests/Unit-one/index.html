@@ -135,8 +135,8 @@
             </div>
             <h1 class="text-4xl font-bold text-slate-900 mt-4">Mathematics Test</h1>
             <div id="finalScoreContainer" class="hidden absolute top-0 right-0 bg-white px-4 py-2 rounded-lg shadow-md border border-slate-200 text-center">
-                <span class="text-lg font-medium text-slate-600">Final Score</span>
-                <div id="results" class="text-3xl font-bold text-slate-800"></div>
+                <span id="scoreTitle" class="text-lg font-medium text-slate-600">Final Score</span>
+                <div id="results" class="text-3xl font-bold text-slate-800">0 / 0</div>
             </div>
             <p class="text-slate-600 mt-2">Part 1: Multiple Choice</p>
         </header>
@@ -471,16 +471,6 @@
         }
 
         function buildQuiz() {
-            // Check for a saved question order in localStorage
-            const savedState = getSavedState();
-            if (savedState && savedState.mcOrder) {
-                // If there's a saved order, sort the quizData to match it
-                quizData.sort((a, b) => savedState.mcOrder.indexOf(a.id) - savedState.mcOrder.indexOf(b.id));
-            } else {
-                // Otherwise, shuffle for a new test
-                shuffleArray(quizData); // Randomize the order of questions
-            }
-
             const colorClasses = ['border-l-q-blue', 'border-l-q-purple', 'border-l-q-pink', 'border-l-q-teal'];
             const output = [];
             quizData.forEach((currentQuestion, questionNumber) => {
@@ -546,9 +536,9 @@
         function gradeMC() {
             mcScore = 0;
             // 1. Grade Multiple Choice
-            quizData.forEach(currentQuestion => {
+            quizData.forEach((currentQuestion, questionNumber) => {
                 const questionContainer = document.getElementById(`q-container-${currentQuestion.id}`);
-                const feedbackContainer = document.getElementById(`feedback-${currentQuestion.id}`);
+                const feedbackContainer = document.getElementById(`feedback-${questionNumber}`);
                 const selector = `input[name=question-${currentQuestion.id}]:checked`;
                 const userAnswer = (document.querySelector(selector) || {}).value;
                 questionContainer.classList.remove('correct', 'incorrect');
@@ -573,10 +563,15 @@
             });
             quizForm.querySelectorAll('input[type=radio]').forEach(input => input.disabled = true);
             gradeMCBtn.disabled = true;
-            alert(`You scored ${mcScore} out of ${mcMaxScore} on the multiple choice section.`);
+            
+            // Display the MC score
+            document.getElementById('scoreTitle').textContent = 'MC Score';
+            resultsContainer.innerHTML = `${mcScore} / ${mcMaxScore}`;
+            document.getElementById('finalScoreContainer').classList.remove('hidden');
+
             checkWPCompletion(); // Check if WP can be enabled now
         }
-
+        
         function gradeWordProblems() {
             wpScore = 0;
             // 2. Grade Word Problems
@@ -627,7 +622,8 @@
             const totalScore = Math.round(mcScore + wpScore);
             const maxScore = mcMaxScore + wpMaxScore;
 
-            resultsContainer.innerHTML = `${totalScore} / ${maxScore}`;
+            document.getElementById('scoreTitle').textContent = 'Final Score';
+            resultsContainer.innerHTML = `${totalScore} / ${maxScore}`; // Update the score display
             document.getElementById('finalScoreContainer').classList.remove('hidden');
 
             for (const solutionId in wordProblemSolutions) {
@@ -720,62 +716,6 @@
             gradeWordProblems();
         }
 
-        // --- PROGRESS SAVING & LOADING ---
-        function getSavedState() {
-            const savedStateJSON = localStorage.getItem('mathTestProgress');
-            return savedStateJSON ? JSON.parse(savedStateJSON) : null;
-        }
-
-        function saveState() {
-            if (testIsComplete) return; // Don't save after completion
-
-            const mcAnswers = {};
-            quizData.forEach(q => {
-                const selector = `input[name=question-${q.id}]:checked`;
-                const checkedInput = document.querySelector(selector);
-                if (checkedInput) {
-                    mcAnswers[q.id] = checkedInput.value;
-                }
-            });
-
-            const wpAnswers = {};
-            wordProblemsContainer.querySelectorAll('.wp-input').forEach(input => {
-                if (input.value.trim() !== '') {
-                    wpAnswers[input.id] = input.value;
-                }
-            });
-
-            const state = {
-                studentName: studentNameInput.value,
-                mcOrder: quizData.map(q => q.id),
-                mcAnswers: mcAnswers,
-                wpAnswers: wpAnswers,
-                isMCGraded: gradeMCBtn.disabled
-            };
-
-            localStorage.setItem('mathTestProgress', JSON.stringify(state));
-        }
-
-        function loadState() {
-            const savedState = getSavedState();
-            if (!savedState) return;
-
-            studentNameInput.value = savedState.studentName || '';
-
-            // Restore MC answers
-            for (const qId in savedState.mcAnswers) {
-                const answer = savedState.mcAnswers[qId];
-                const radio = document.querySelector(`input[name="question-${qId}"][value="${CSS.escape(answer)}"]`);
-                if (radio) radio.checked = true;
-            }
-
-            // Restore WP answers
-            for (const inputId in savedState.wpAnswers) {
-                const inputEl = document.getElementById(inputId);
-                if (inputEl) inputEl.value = savedState.wpAnswers[inputId];
-            }
-        }
-
         // --- INITIALIZATION & EVENT LISTENERS ---
         buildQuiz();
         initializeProgressBar(); // Set up the progress bar, values will be updated on load
@@ -790,7 +730,6 @@
             }
         });
         quizForm.addEventListener('change', (e) => {
-            saveState(); // Save progress on any change
             // If a radio button was changed, auto-scroll to the next question
             if (e.target.type === 'radio') {
                 const currentQuestionContainer = e.target.closest('.question-container');
@@ -812,11 +751,9 @@
         });
         studentNameInput.addEventListener('input', () => {
             checkMCCompletion();
-            saveState();
             updateProgressBar();
         });
         wordProblemsContainer.addEventListener('input', (e) => {
-            saveState();
             // Add/remove 'has-value' class for transparent text effect
             if (e.target.classList.contains('wp-input')) {
                 if (e.target.value.trim() !== '') {
@@ -840,12 +777,7 @@
             // This logic runs after the page and all resources are fully loaded.
             const urlParams = new URLSearchParams(window.location.search);
             if (urlParams.get('teacher') === 'true') {
-                // If in teacher mode, clear any student state and run.
-                localStorage.removeItem('mathTestProgress');
                 runTeacherMode();
-            } else {
-                // Otherwise, load the student's saved state.
-                loadState();
             }
 
             // After loading state or running teacher mode, update the UI.
