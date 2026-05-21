@@ -413,6 +413,20 @@ h1 { font-family:'Fredoka One',cursive; font-size:clamp(1.9rem,5vw,3.1rem); line
 .teacher-toggle button:hover { color:var(--body-color); border-color:var(--card-border-h); }
 
 /* ═══════════════════════════════════════════
+   FRACTION SYMBOLS — large & readable
+═══════════════════════════════════════════ */
+.frac {
+  font-size: 1.25em;
+  font-weight: 900;
+  line-height: 1;
+  color: var(--top-badge-bg);
+  font-family: 'Nunito', sans-serif;
+}
+.msym .frac {
+  font-size: 1.1em;
+}
+
+/* ═══════════════════════════════════════════
    MATH SYMBOL TOOLBAR
 ═══════════════════════════════════════════ */
 .math-toolbar {
@@ -655,7 +669,7 @@ h1 { font-family:'Fredoka One',cursive; font-size:clamp(1.9rem,5vw,3.1rem); line
   <div class="modal-card">
     <div class="modal-icon">🔑</div>
     <div class="modal-title">Enter Class Code</div>
-    <div class="modal-desc">Ask Mr. EdLo for today's class code to submit your answers and get your AI feedback.</div>
+    <div class="modal-desc">Ask Mr. EdLo for today's class code to submit your answers and get your Teacher Feedback.</div>
     <input class="modal-input" type="text" id="passkeyInput" placeholder="" autocomplete="off" spellcheck="false">
     <button class="btn-primary" style="width:100%;margin-bottom:.5rem" onclick="validatePasskey()">Submit →</button>
     <div class="modal-err" id="passkeyErr">❌ Wrong code — ask Mr. EdLo for the correct code.</div>
@@ -769,7 +783,7 @@ h1 { font-family:'Fredoka One',cursive; font-size:clamp(1.9rem,5vw,3.1rem); line
         <img src="images/a1-cylinder.png" alt="Cylinder with radius 5 cm and height 12 cm" class="q-diagram">
         <div class="formula-box"><div class="formula-label">Formula given</div>SA = 2πr² + 2πrh</div>
         <label class="field-label">Working — show every step</label>
-        <div class="math-toolbar"><div class="math-toolbar-label">Tap to insert symbol</div><button type="button" class="msym" onclick="ins('a1w','+')">+</button><button type="button" class="msym" onclick="ins('a1w','−')">−</button><button type="button" class="msym" onclick="ins('a1w','π')">π</button><button type="button" class="msym" onclick="ins('a1w','²')">x²</button><button type="button" class="msym" onclick="ins('a1w','³')">x³</button><button type="button" class="msym" onclick="ins('a1w','×')">×</button><button type="button" class="msym" onclick="ins('a1w','÷')">÷</button><button type="button" class="msym" onclick="ins('a1w','½')">½</button><button type="button" class="msym" onclick="ins('a1w','⅓')">⅓</button><button type="button" class="msym" onclick="ins('a1w','√')">√</button><button type="button" class="msym" onclick="ins('a1w',' cm²')">cm²</button><button type="button" class="msym" onclick="ins('a1w',' cm³')">cm³</button><button type="button" class="msym" onclick="ins('a1w',' m²')">m²</button><button type="button" class="msym" onclick="ins('a1w',' m³')">m³</button></div>
+        <div class="math-toolbar"><div class="math-toolbar-label">Tap to insert symbol</div><button type="button" class="msym" onclick="ins('a1w','+')">+</button><button type="button" class="msym" onclick="ins('a1w','−')">−</button><button type="button" class="msym" onclick="ins('a1w','π')">π</button><button type="button" class="msym" onclick="ins('a1w','²')">x²</button><button type="button" class="msym" onclick="ins('a1w','³')">x³</button><button type="button" class="msym" onclick="ins('a1w','×')">×</button><button type="button" class="msym" onclick="ins('a1w','÷')">÷</button><button type="button" class="msym" onclick="ins('a1w','(1/2)')"><span class="frac">½</span></button><button type="button" class="msym" onclick="ins('a1w','(1/3)')"><span class="frac">⅓</span></button><button type="button" class="msym" onclick="ins('a1w','√')">√</button><button type="button" class="msym" onclick="ins('a1w',' cm²')">cm²</button><button type="button" class="msym" onclick="ins('a1w',' cm³')">cm³</button><button type="button" class="msym" onclick="ins('a1w',' m²')">m²</button><button type="button" class="msym" onclick="ins('a1w',' m³')">m³</button></div>
         <textarea class="working-area" id="a1w" placeholder="Show your working step by step. Start by writing the formula, then substitute the values."></textarea>
         <label class="field-label">Final answer</label>
         <div class="math-toolbar"><div class="math-toolbar-label">Tap to insert symbol</div><button type="button" class="msym" onclick="ins('a1a','+')">+</button><button type="button" class="msym" onclick="ins('a1a','−')">−</button><button type="button" class="msym" onclick="ins('a1a','π')">π</button><button type="button" class="msym" onclick="ins('a1a','²')">x²</button><button type="button" class="msym" onclick="ins('a1a','³')">x³</button><button type="button" class="msym" onclick="ins('a1a','×')">×</button><button type="button" class="msym" onclick="ins('a1a',' cm²')">cm²</button><button type="button" class="msym" onclick="ins('a1a',' cm³')">cm³</button><button type="button" class="msym" onclick="ins('a1a',' m²')">m²</button><button type="button" class="msym" onclick="ins('a1a',' m³')">m³</button></div>
@@ -785,12 +799,12 @@ h1 { font-family:'Fredoka One',cursive; font-size:clamp(1.9rem,5vw,3.1rem); line
       <div class="question" data-q="a2">
         <div class="q-label"><span class="q-num">A2.</span><span>Calculate the total surface area of a rectangular pyramid with a square base of side 8 cm and slant height 10 cm.</span><span class="q-pts">5 marks</span></div>
         <img src="images/a2-pyramid.png" alt="Rectangular pyramid with square base 8 cm and slant height 10 cm" class="q-diagram">
-        <div class="formula-box"><div class="formula-label">Formula given</div>SA = base area + 4 × (½ × base edge × slant height)</div>
+        <div class="formula-box"><div class="formula-label">Formula given</div>SA = base area + 4 × (<span class="frac">½</span> × base edge × slant height)</div>
         <label class="field-label">Working — show every step</label>
-        <div class="math-toolbar"><div class="math-toolbar-label">Tap to insert symbol</div><button type="button" class="msym" onclick="ins('a2w','+')">+</button><button type="button" class="msym" onclick="ins('a2w','−')">−</button><button type="button" class="msym" onclick="ins('a2w','π')">π</button><button type="button" class="msym" onclick="ins('a2w','²')">x²</button><button type="button" class="msym" onclick="ins('a2w','³')">x³</button><button type="button" class="msym" onclick="ins('a2w','×')">×</button><button type="button" class="msym" onclick="ins('a2w','÷')">÷</button><button type="button" class="msym" onclick="ins('a2w','½')">½</button><button type="button" class="msym" onclick="ins('a2w','⅓')">⅓</button><button type="button" class="msym" onclick="ins('a2w',' cm²')">cm²</button><button type="button" class="msym" onclick="ins('a2w',' cm³')">cm³</button><button type="button" class="msym" onclick="ins('a2w',' m²')">m²</button><button type="button" class="msym" onclick="ins('a2w',' m³')">m³</button></div>
+        <div class="math-toolbar"><div class="math-toolbar-label">Tap to insert symbol</div><button type="button" class="msym" onclick="ins('a2w','+')">+</button><button type="button" class="msym" onclick="ins('a2w','−')">−</button><button type="button" class="msym" onclick="ins('a2w','π')">π</button><button type="button" class="msym" onclick="ins('a2w','²')">x²</button><button type="button" class="msym" onclick="ins('a2w','³')">x³</button><button type="button" class="msym" onclick="ins('a2w','×')">×</button><button type="button" class="msym" onclick="ins('a2w','÷')">÷</button><button type="button" class="msym" onclick="ins('a2w','(1/2)')"><span class="frac">½</span></button><button type="button" class="msym" onclick="ins('a2w','(1/3)')"><span class="frac">⅓</span></button><button type="button" class="msym" onclick="ins('a2w',' cm²')">cm²</button><button type="button" class="msym" onclick="ins('a2w',' cm³')">cm³</button><button type="button" class="msym" onclick="ins('a2w',' m²')">m²</button><button type="button" class="msym" onclick="ins('a2w',' m³')">m³</button></div>
         <textarea class="working-area" id="a2w" placeholder="Step 1 — Calculate the base area&#10;Step 2 — Calculate one triangular face&#10;Step 3 — Multiply by four faces&#10;Step 4 — Add base area and four faces for total SA"></textarea>
         <label class="field-label">Final answer</label>
-        <div class="math-toolbar"><div class="math-toolbar-label">Tap to insert symbol</div><button type="button" class="msym" onclick="ins('a2a','+')">+</button><button type="button" class="msym" onclick="ins('a2a','−')">−</button><button type="button" class="msym" onclick="ins('a2a','²')">x²</button><button type="button" class="msym" onclick="ins('a2a','×')">×</button><button type="button" class="msym" onclick="ins('a2a','½')">½</button><button type="button" class="msym" onclick="ins('a2a',' cm²')">cm²</button><button type="button" class="msym" onclick="ins('a2a',' cm³')">cm³</button><button type="button" class="msym" onclick="ins('a2a',' m²')">m²</button></div>
+        <div class="math-toolbar"><div class="math-toolbar-label">Tap to insert symbol</div><button type="button" class="msym" onclick="ins('a2a','+')">+</button><button type="button" class="msym" onclick="ins('a2a','−')">−</button><button type="button" class="msym" onclick="ins('a2a','²')">x²</button><button type="button" class="msym" onclick="ins('a2a','×')">×</button><button type="button" class="msym" onclick="ins('a2a','(1/2)')"><span class="frac">½</span></button><button type="button" class="msym" onclick="ins('a2a',' cm²')">cm²</button><button type="button" class="msym" onclick="ins('a2a',' cm³')">cm³</button><button type="button" class="msym" onclick="ins('a2a',' m²')">m²</button></div>
         <input class="answer-input" type="text" id="a2a" placeholder="Write your final answer with units e.g. SA = ___ cm²">
         <div class="fb-box" id="a2-fb"></div>
         <div class="adj-panel" id="a2-adj">
@@ -805,7 +819,7 @@ h1 { font-family:'Fredoka One',cursive; font-size:clamp(1.9rem,5vw,3.1rem); line
         <img src="images/a3-tank.png" alt="Cylindrical tank with diameter 14 m and height 6 m" class="q-diagram">
         <div class="formula-box"><div class="formula-label">Hint</div>Diameter is given — find radius first: r = diameter ÷ 2</div>
         <label class="field-label">Working</label>
-        <div class="math-toolbar"><div class="math-toolbar-label">Tap to insert symbol</div><button type="button" class="msym" onclick="ins('a3w','+')">+</button><button type="button" class="msym" onclick="ins('a3w','−')">−</button><button type="button" class="msym" onclick="ins('a3w','π')">π</button><button type="button" class="msym" onclick="ins('a3w','²')">x²</button><button type="button" class="msym" onclick="ins('a3w','³')">x³</button><button type="button" class="msym" onclick="ins('a3w','×')">×</button><button type="button" class="msym" onclick="ins('a3w','÷')">÷</button><button type="button" class="msym" onclick="ins('a3w','½')">½</button><button type="button" class="msym" onclick="ins('a3w',' m²')">m²</button><button type="button" class="msym" onclick="ins('a3w',' m³')">m³</button></div>
+        <div class="math-toolbar"><div class="math-toolbar-label">Tap to insert symbol</div><button type="button" class="msym" onclick="ins('a3w','+')">+</button><button type="button" class="msym" onclick="ins('a3w','−')">−</button><button type="button" class="msym" onclick="ins('a3w','π')">π</button><button type="button" class="msym" onclick="ins('a3w','²')">x²</button><button type="button" class="msym" onclick="ins('a3w','³')">x³</button><button type="button" class="msym" onclick="ins('a3w','×')">×</button><button type="button" class="msym" onclick="ins('a3w','÷')">÷</button><button type="button" class="msym" onclick="ins('a3w','(1/2)')"><span class="frac">½</span></button><button type="button" class="msym" onclick="ins('a3w',' m²')">m²</button><button type="button" class="msym" onclick="ins('a3w',' m³')">m³</button></div>
         <textarea class="working-area" id="a3w" placeholder="Remember: diameter is given — find radius first&#10;Then apply the cylinder surface area formula"></textarea>
         <label class="field-label">Final answer</label>
         <div class="math-toolbar"><div class="math-toolbar-label">Tap to insert symbol</div><button type="button" class="msym" onclick="ins('a3a','+')">+</button><button type="button" class="msym" onclick="ins('a3a','−')">−</button><button type="button" class="msym" onclick="ins('a3a','²')">x²</button><button type="button" class="msym" onclick="ins('a3a','×')">×</button><button type="button" class="msym" onclick="ins('a3a',' m²')">m²</button><button type="button" class="msym" onclick="ins('a3a',' m³')">m³</button></div>
@@ -849,12 +863,12 @@ h1 { font-family:'Fredoka One',cursive; font-size:clamp(1.9rem,5vw,3.1rem); line
       <div class="question" data-q="b2">
         <div class="q-label"><span class="q-num">B2.</span><span>Calculate the volume of a rectangular pyramid with a base measuring 9 cm × 6 cm and perpendicular height 10 cm.</span><span class="q-pts">4 marks</span></div>
         <img src="images/b2-pyramid.png" alt="Rectangular pyramid with base 9 cm by 6 cm and height 10 cm" class="q-diagram">
-        <div class="formula-box"><div class="formula-label">Formula given</div>V = ⅓ × base area × h</div>
+        <div class="formula-box"><div class="formula-label">Formula given</div>V = <span class="frac">⅓</span> × base area × h</div>
         <label class="field-label">Working</label>
-        <div class="math-toolbar"><div class="math-toolbar-label">Tap to insert symbol</div><button type="button" class="msym" onclick="ins('b2w','+')">+</button><button type="button" class="msym" onclick="ins('b2w','−')">−</button><button type="button" class="msym" onclick="ins('b2w','π')">π</button><button type="button" class="msym" onclick="ins('b2w','²')">x²</button><button type="button" class="msym" onclick="ins('b2w','×')">×</button><button type="button" class="msym" onclick="ins('b2w','÷')">÷</button><button type="button" class="msym" onclick="ins('b2w','⅓')">⅓</button><button type="button" class="msym" onclick="ins('b2w',' cm²')">cm²</button><button type="button" class="msym" onclick="ins('b2w',' cm³')">cm³</button></div>
-        <textarea class="working-area" id="b2w" placeholder="Step 1 — Calculate the base area&#10;Step 2 — Apply the pyramid volume formula with the ⅓ factor"></textarea>
+        <div class="math-toolbar"><div class="math-toolbar-label">Tap to insert symbol</div><button type="button" class="msym" onclick="ins('b2w','+')">+</button><button type="button" class="msym" onclick="ins('b2w','−')">−</button><button type="button" class="msym" onclick="ins('b2w','π')">π</button><button type="button" class="msym" onclick="ins('b2w','²')">x²</button><button type="button" class="msym" onclick="ins('b2w','×')">×</button><button type="button" class="msym" onclick="ins('b2w','÷')">÷</button><button type="button" class="msym" onclick="ins('b2w','(1/3)')"><span class="frac">⅓</span></button><button type="button" class="msym" onclick="ins('b2w',' cm²')">cm²</button><button type="button" class="msym" onclick="ins('b2w',' cm³')">cm³</button></div>
+        <textarea class="working-area" id="b2w" placeholder="Step 1 — Calculate the base area&#10;Step 2 — Apply the pyramid volume formula with the 1/3 factor"></textarea>
         <label class="field-label">Final answer</label>
-        <div class="math-toolbar"><div class="math-toolbar-label">Tap to insert symbol</div><button type="button" class="msym" onclick="ins('b2a','+')">+</button><button type="button" class="msym" onclick="ins('b2a','−')">−</button><button type="button" class="msym" onclick="ins('b2a','³')">x³</button><button type="button" class="msym" onclick="ins('b2a','⅓')">⅓</button><button type="button" class="msym" onclick="ins('b2a',' cm³')">cm³</button></div>
+        <div class="math-toolbar"><div class="math-toolbar-label">Tap to insert symbol</div><button type="button" class="msym" onclick="ins('b2a','+')">+</button><button type="button" class="msym" onclick="ins('b2a','−')">−</button><button type="button" class="msym" onclick="ins('b2a','³')">x³</button><button type="button" class="msym" onclick="ins('b2a','(1/3)')"><span class="frac">⅓</span></button><button type="button" class="msym" onclick="ins('b2a',' cm³')">cm³</button></div>
         <input class="answer-input" type="text" id="b2a" placeholder="Write your final answer with units e.g. V = ___ cm³">
         <div class="fb-box" id="b2-fb"></div>
         <div class="adj-panel" id="b2-adj">
@@ -867,12 +881,12 @@ h1 { font-family:'Fredoka One',cursive; font-size:clamp(1.9rem,5vw,3.1rem); line
       <div class="question" data-q="b3">
         <div class="q-label"><span class="q-num">B3.</span><span>Calculate the volume of a cone with radius 7 cm and height 15 cm.</span><span class="q-pts">4 marks</span></div>
         <img src="images/b3-cone.png" alt="Cone with radius 7 cm and height 15 cm" class="q-diagram">
-        <div class="formula-box"><div class="formula-label">Formula given</div>V = ⅓ × π × r² × h</div>
+        <div class="formula-box"><div class="formula-label">Formula given</div>V = <span class="frac">⅓</span> × π × r² × h</div>
         <label class="field-label">Working</label>
-        <div class="math-toolbar"><div class="math-toolbar-label">Tap to insert symbol</div><button type="button" class="msym" onclick="ins('b3w','+')">+</button><button type="button" class="msym" onclick="ins('b3w','−')">−</button><button type="button" class="msym" onclick="ins('b3w','π')">π</button><button type="button" class="msym" onclick="ins('b3w','²')">x²</button><button type="button" class="msym" onclick="ins('b3w','³')">x³</button><button type="button" class="msym" onclick="ins('b3w','×')">×</button><button type="button" class="msym" onclick="ins('b3w','⅓')">⅓</button><button type="button" class="msym" onclick="ins('b3w',' cm³')">cm³</button></div>
-        <textarea class="working-area" id="b3w" placeholder="Show your full working. Remember the ⅓ factor in the cone formula."></textarea>
+        <div class="math-toolbar"><div class="math-toolbar-label">Tap to insert symbol</div><button type="button" class="msym" onclick="ins('b3w','+')">+</button><button type="button" class="msym" onclick="ins('b3w','−')">−</button><button type="button" class="msym" onclick="ins('b3w','π')">π</button><button type="button" class="msym" onclick="ins('b3w','²')">x²</button><button type="button" class="msym" onclick="ins('b3w','³')">x³</button><button type="button" class="msym" onclick="ins('b3w','×')">×</button><button type="button" class="msym" onclick="ins('b3w','(1/3)')"><span class="frac">⅓</span></button><button type="button" class="msym" onclick="ins('b3w',' cm³')">cm³</button></div>
+        <textarea class="working-area" id="b3w" placeholder="Show your full working. Remember the 1/3 factor in the cone formula."></textarea>
         <label class="field-label">Final answer</label>
-        <div class="math-toolbar"><div class="math-toolbar-label">Tap to insert symbol</div><button type="button" class="msym" onclick="ins('b3a','+')">+</button><button type="button" class="msym" onclick="ins('b3a','−')">−</button><button type="button" class="msym" onclick="ins('b3a','³')">x³</button><button type="button" class="msym" onclick="ins('b3a','⅓')">⅓</button><button type="button" class="msym" onclick="ins('b3a',' cm³')">cm³</button></div>
+        <div class="math-toolbar"><div class="math-toolbar-label">Tap to insert symbol</div><button type="button" class="msym" onclick="ins('b3a','+')">+</button><button type="button" class="msym" onclick="ins('b3a','−')">−</button><button type="button" class="msym" onclick="ins('b3a','³')">x³</button><button type="button" class="msym" onclick="ins('b3a','(1/3)')"><span class="frac">⅓</span></button><button type="button" class="msym" onclick="ins('b3a',' cm³')">cm³</button></div>
         <input class="answer-input" type="text" id="b3a" placeholder="Write your final answer with units e.g. V = ___ cm³">
         <div class="fb-box" id="b3-fb"></div>
         <div class="adj-panel" id="b3-adj">
@@ -894,7 +908,7 @@ h1 { font-family:'Fredoka One',cursive; font-size:clamp(1.9rem,5vw,3.1rem); line
       <div class="question" data-q="c1">
         <div class="q-label"><span class="q-num">C1.</span><span>In your own words, explain the difference between surface area and volume. Use the word <em>cylinder</em> in your explanation.</span><span class="q-pts">2 marks</span></div>
         <div class="scaffold-box">
-          <div class="scaffold-title">💡 Sentence Starters — tap to add to your answer</div>
+          <div class="scaffold-title">💡 Sentence Starters <span style="font-size:.75em;font-weight:600;opacity:.7;font-family:'Nunito',sans-serif;">(optional — tap to add to your answer)</span></div>
           <div style="margin-bottom:.5rem;">
             <div class="starter-label" style="margin-bottom:.4rem;">Start with surface area:</div>
             <div style="display:flex;gap:.4rem;flex-wrap:wrap;">
@@ -927,17 +941,17 @@ h1 { font-family:'Fredoka One',cursive; font-size:clamp(1.9rem,5vw,3.1rem); line
 
       <!-- C2 -->
       <div class="question" data-q="c2">
-        <div class="q-label"><span class="q-num">C2.</span><span>Write the correct volume formula for each shape below, then explain why the cone and pyramid formulas both contain the factor ⅓.</span><span class="q-pts">2 marks</span></div>
+        <div class="q-label"><span class="q-num">C2.</span><span>Write the correct volume formula for each shape below, then explain why the cone and pyramid formulas both contain the factor <span class="frac">⅓</span>.</span><span class="q-pts">2 marks</span></div>
         <div class="scaffold-box">
-          <div class="scaffold-title">💡 Formula Helper — tap to fill each box</div>
+          <div class="scaffold-title">💡 Formula Helper <span style="font-size:.75em;font-weight:600;opacity:.7;font-family:'Nunito',sans-serif;">(optional — tap to fill each box)</span></div>
           <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:.6rem;">
-            <span class="starter-pill" onclick="fillField('c2cone','V = ⅓ × π × r² × h')">Cone: V = ⅓ × π × r² × h</span>
-            <span class="starter-pill" onclick="fillField('c2pyr','V = ⅓ × base area × h')">Pyramid: V = ⅓ × base area × h</span>
+            <span class="starter-pill" onclick="fillField('c2cone','V = (1/3) x pi x r2 x h')">Cone: V = <span class="frac">⅓</span> × π × r² × h</span>
+            <span class="starter-pill" onclick="fillField('c2pyr','V = (1/3) x base area x h')">Pyramid: V = <span class="frac">⅓</span> × base area × h</span>
             <span class="starter-pill" onclick="fillField('c2cyl','V = π × r² × h')">Cylinder: V = π × r² × h</span>
           </div>
           <div class="starter-label" style="margin-bottom:.4rem;">Starter for the explanation:</div>
           <div style="display:flex;gap:.4rem;flex-wrap:wrap;">
-            <span class="starter-pill" onclick="appendStarter('c2a','The ⅓ appears because ')">The ⅓ appears because...</span>
+            <span class="starter-pill" onclick="appendStarter('c2a','The 1/3 appears because ')">The <span class="frac">⅓</span> appears because...</span>
             <span class="starter-pill" onclick="appendStarter('c2a','A cone fits exactly 3 times into a cylinder with the same base and height. ')">A cone fits exactly 3 times into a cylinder...</span>
             <span class="starter-pill" onclick="appendStarter('c2a','A pyramid fits exactly 3 times into a prism with the same base and height. ')">A pyramid fits exactly 3 times into a prism...</span>
           </div>
@@ -947,7 +961,7 @@ h1 { font-family:'Fredoka One',cursive; font-size:clamp(1.9rem,5vw,3.1rem); line
           <div><label class="field-label">Pyramid formula</label><input class="answer-input" type="text" id="c2pyr" placeholder="V = ..."></div>
           <div><label class="field-label">Cylinder formula</label><input class="answer-input" type="text" id="c2cyl" placeholder="V = ..."></div>
         </div>
-        <label class="field-label">Why does ⅓ appear in both the cone and pyramid formulas?</label>
+        <label class="field-label">Why does <span class="frac">⅓</span> appear in both the cone and pyramid formulas?</label>
         <textarea class="working-area" id="c2a" style="min-height:80px;" placeholder="Write your explanation here."></textarea>
         <div class="fb-box" id="c2-fb"></div>
         <div class="adj-panel" id="c2-adj">
@@ -961,14 +975,14 @@ h1 { font-family:'Fredoka One',cursive; font-size:clamp(1.9rem,5vw,3.1rem); line
         <div class="q-label"><span class="q-num">C3.</span><span>A farmer stores grain in a cone-shaped silo with radius 3 m and perpendicular height 4 m. Calculate the volume of grain the silo can hold. State your answer in context.</span><span class="q-pts">3 marks</span></div>
         <img src="images/c3-silo.png" alt="Cone-shaped silo with radius 3 m and height 4 m" class="q-diagram">
         <div class="scaffold-box">
-          <div class="scaffold-title">📋 Step-by-Step Guide</div>
+          <div class="scaffold-title">📋 Step-by-Step Guide <span style="font-size:.75em;font-weight:600;opacity:.7;font-family:'Nunito',sans-serif;">(optional — use to organise your thinking)</span></div>
           <div class="scaffold-step"><span class="scaffold-num">1</span><input class="scaffold-input" id="c3s1" placeholder="Write the correct formula for this shape" oninput="updateQuestionProgress()"><span class="scaffold-hint">Formula</span></div>
           <div class="scaffold-step"><span class="scaffold-num">2</span><input class="scaffold-input" id="c3s2" placeholder="Replace r and h with the values given in the question" oninput="updateQuestionProgress()"><span class="scaffold-hint">Substitute</span></div>
           <div class="scaffold-step"><span class="scaffold-num">3</span><input class="scaffold-input" id="c3s3" placeholder="Work out the answer step by step" oninput="updateQuestionProgress()"><span class="scaffold-hint">Calculate</span></div>
           <div class="scaffold-step"><span class="scaffold-num">4</span><input class="scaffold-input" id="c3s4" placeholder="Write your answer as a sentence relating to the farmer and grain" oninput="updateQuestionProgress()"><span class="scaffold-hint">In context</span></div>
         </div>
         <label class="field-label">Full working (use steps above to guide you)</label>
-        <div class="math-toolbar"><div class="math-toolbar-label">Tap to insert symbol</div><button type="button" class="msym" onclick="ins('c3w','+')">+</button><button type="button" class="msym" onclick="ins('c3w','−')">−</button><button type="button" class="msym" onclick="ins('c3w','π')">π</button><button type="button" class="msym" onclick="ins('c3w','²')">x²</button><button type="button" class="msym" onclick="ins('c3w','³')">x³</button><button type="button" class="msym" onclick="ins('c3w','×')">×</button><button type="button" class="msym" onclick="ins('c3w','⅓')">⅓</button><button type="button" class="msym" onclick="ins('c3w',' m³')">m³</button></div>
+        <div class="math-toolbar"><div class="math-toolbar-label">Tap to insert symbol</div><button type="button" class="msym" onclick="ins('c3w','+')">+</button><button type="button" class="msym" onclick="ins('c3w','−')">−</button><button type="button" class="msym" onclick="ins('c3w','π')">π</button><button type="button" class="msym" onclick="ins('c3w','²')">x²</button><button type="button" class="msym" onclick="ins('c3w','³')">x³</button><button type="button" class="msym" onclick="ins('c3w','×')">×</button><button type="button" class="msym" onclick="ins('c3w','(1/3)')"><span class="frac">⅓</span></button><button type="button" class="msym" onclick="ins('c3w',' m³')">m³</button></div>
         <textarea class="working-area" id="c3w" placeholder="Show your full working here using the steps above as a guide"></textarea>
         <label class="field-label">Answer in context</label>
         <input class="answer-input" type="text" id="c3a" placeholder="Write your answer as a complete sentence in context">
@@ -983,7 +997,7 @@ h1 { font-family:'Fredoka One',cursive; font-size:clamp(1.9rem,5vw,3.1rem); line
       <div class="question" data-q="c4">
         <div class="q-label"><span class="q-num">C4.</span><span>A student wrote: <em style="background:var(--formula-bg);padding:2px 8px;border-radius:6px;font-style:normal;">V = 2 × π × 4 × 10 = 251.2 cm³</em> for a cylinder with radius 4 cm and height 10 cm. Identify the error, state the correct formula, and calculate the correct answer.</span><span class="q-pts">3 marks</span></div>
         <div class="scaffold-box">
-          <div class="scaffold-title">🔍 Error-Finding Guide — three things to do</div>
+          <div class="scaffold-title">🔍 Error-Finding Guide <span style="font-size:.75em;font-weight:600;opacity:.7;font-family:'Nunito',sans-serif;">(optional — use to organise your thinking)</span></div>
           <div class="scaffold-step"><span class="scaffold-num">1</span><input class="scaffold-input" id="c4s1" placeholder="Describe exactly what the student did incorrectly" oninput="updateQuestionProgress()"><span class="scaffold-hint">Find error</span></div>
           <div class="scaffold-step"><span class="scaffold-num">2</span><input class="scaffold-input" id="c4s2" placeholder="Write the correct formula for this shape" oninput="updateQuestionProgress()"><span class="scaffold-hint">Correct formula</span></div>
           <div class="scaffold-step"><span class="scaffold-num">3</span><input class="scaffold-input" id="c4s3" placeholder="Show the correct calculation from start to finish" oninput="updateQuestionProgress()"><span class="scaffold-hint">Recalculate</span></div>
@@ -999,7 +1013,7 @@ h1 { font-family:'Fredoka One',cursive; font-size:clamp(1.9rem,5vw,3.1rem); line
         <label class="field-label">Error identified</label>
         <input class="answer-input" type="text" id="c4err" placeholder="Describe the error clearly">
         <label class="field-label">Correct formula</label>
-        <div class="math-toolbar"><div class="math-toolbar-label">Tap to insert symbol</div><button type="button" class="msym" onclick="ins('c4form','+')">+</button><button type="button" class="msym" onclick="ins('c4form','−')">−</button><button type="button" class="msym" onclick="ins('c4form','π')">π</button><button type="button" class="msym" onclick="ins('c4form','²')">x²</button><button type="button" class="msym" onclick="ins('c4form','×')">×</button><button type="button" class="msym" onclick="ins('c4form','⅓')">⅓</button></div>
+        <div class="math-toolbar"><div class="math-toolbar-label">Tap to insert symbol</div><button type="button" class="msym" onclick="ins('c4form','+')">+</button><button type="button" class="msym" onclick="ins('c4form','−')">−</button><button type="button" class="msym" onclick="ins('c4form','π')">π</button><button type="button" class="msym" onclick="ins('c4form','²')">x²</button><button type="button" class="msym" onclick="ins('c4form','×')">×</button><button type="button" class="msym" onclick="ins('c4form','(1/3)')"><span class="frac">⅓</span></button></div>
         <input class="answer-input" type="text" id="c4form" placeholder="V = ..." style="margin-top:.4rem;">
         <label class="field-label">Correct working and answer</label>
         <div class="math-toolbar"><div class="math-toolbar-label">Tap to insert symbol</div><button type="button" class="msym" onclick="ins('c4a','+')">+</button><button type="button" class="msym" onclick="ins('c4a','−')">−</button><button type="button" class="msym" onclick="ins('c4a','π')">π</button><button type="button" class="msym" onclick="ins('c4a','²')">x²</button><button type="button" class="msym" onclick="ins('c4a','³')">x³</button><button type="button" class="msym" onclick="ins('c4a','×')">×</button><button type="button" class="msym" onclick="ins('c4a',' cm³')">cm³</button></div>
@@ -1537,7 +1551,7 @@ ${ans.b3}
 C1 (2 marks) — Explain SA vs Volume using 'cylinder'
 ${ans.c1}
 
-C2 (2 marks) — Volume formulas + explain ⅓
+C2 (2 marks) — Volume formulas + explain (1/3)
 ${ans.c2}
 
 C3 (3 marks) — Cone silo problem in context
@@ -1604,7 +1618,7 @@ function displayResults(aiData, ans) {
     currentScores[q] = score;
 
     const fb = document.getElementById(q + '-fb');
-    fb.innerHTML = `<div class="fb-score">${score}/${MAX_MARKS[q]}</div>${feedback}`;
+    fb.innerHTML = `<div class="fb-score">📝 Teacher Feedback &nbsp;·&nbsp; ${score}/${MAX_MARKS[q]}</div>${feedback}`;
     fb.classList.add('show');
 
     buildAdjPanel(q, score);
@@ -1685,7 +1699,7 @@ function buildAdjPanel(q, currentScore) {
   const panel = document.getElementById(q + '-adj');
   if (panel) {
     const lbl = panel.querySelector('.adj-label');
-    if (lbl) lbl.textContent = `🔑 Teacher — adjust mark (max ${max}) · AI gave: ${currentScore}/${max}`;
+    if (lbl) lbl.textContent = `🔑 Adjust Mark (max ${max})`;
   }
 }
 
@@ -1697,7 +1711,7 @@ function applyAdjustment(q, newScore) {
   });
   const fb = document.getElementById(q + '-fb');
   const oldScore = fb.querySelector('.fb-score');
-  if (oldScore) oldScore.textContent = `${newScore}/${MAX_MARKS[q]} (adjusted)`;
+  if (oldScore) oldScore.textContent = `📝 Teacher Feedback &nbsp;·&nbsp; ${newScore}/${MAX_MARKS[q]} (adjusted)`;
   updateTotals();
   // Update saved data
   if (window._savedData) {
@@ -1726,8 +1740,8 @@ function downloadPDF() {
   const d = window._savedData || {};
   const name   = d.name   || document.getElementById('studentName').value || 'Not entered';
   const date   = d.date   || document.getElementById('testDate').value;
-  const sA     = d.sA     !== undefined ? d.sA + '/14'  : document.getElementById('s-a').textContent + '/14';
-  const sB     = d.sB     !== undefined ? d.sB + '/16'  : document.getElementById('s-b').textContent + '/16';
+  const sA     = d.sA     !== undefined ? d.sA + '/12'  : document.getElementById('s-a').textContent + '/12';
+  const sB     = d.sB     !== undefined ? d.sB + '/12'  : document.getElementById('s-b').textContent + '/12';
   const sC     = d.sC     !== undefined ? d.sC + '/10'  : document.getElementById('s-c').textContent + '/10';
   const sTotal = d.sTotal !== undefined ? d.sTotal+'/34': document.getElementById('s-total').textContent + '/34';
   const sPct   = d.sPct   !== undefined ? d.sPct + '%'  : document.getElementById('s-pct').textContent;
@@ -1735,6 +1749,22 @@ function downloadPDF() {
   const ai     = d.ai || aiResults;
   const sc     = d.scores || currentScores;
   const ans    = d.answers || collectAnswers();
+
+  // Sanitise text for jsPDF — replace Unicode chars it cannot render
+  function clean(str) {
+    if (!str) return '';
+    return str
+      .replace(/⅓/g, '(1/3)')
+      .replace(/½/g,  '(1/2)')
+      .replace(/π/g,  'pi')
+      .replace(/²/g,  '^2')
+      .replace(/³/g,  '^3')
+      .replace(/×/g,  'x')
+      .replace(/÷/g,  '/')
+      .replace(/−/g,  '-')
+      .replace(/≈/g,  '~')
+      .replace(/[^\x00-\x7F]/g, '');
+  }
 
   const margin = 20, pageW = 210, colW = pageW - margin*2;
   let y = 0;
@@ -1794,10 +1824,10 @@ function downloadPDF() {
     {num:'A2', q:'Pyramid SA (base 8cm, slant 10cm)', a: ans?.a2 || '(not saved)'},
     {num:'A3', q:'Cylinder SA (diameter 14m, h=6m)', a: ans?.a3 || '(not saved)'},
     {num:'B1', q:'Cylinder V (diameter 10cm, h=8cm)', a: ans?.b1 || '(not saved)'},
-    {num:'B2', q:'Pyramid V (base 9×6cm, h=10cm)', a: ans?.b2 || '(not saved)'},
+    {num:'B2', q:'Pyramid V (base 9x6cm, h=10cm)', a: ans?.b2 || '(not saved)'},
     {num:'B3', q:'Cone V (r=7cm, h=15cm)', a: ans?.b3 || '(not saved)'},
     {num:'C1', q:'Explain SA vs Volume (use cylinder)', a: ans?.c1 || '(not saved)'},
-    {num:'C2', q:'Volume formulas + explain ⅓', a: ans?.c2 || '(not saved)'},
+    {num:'C2', q:'Volume formulas + explain (1/3)', a: ans?.c2 || '(not saved)'},
     {num:'C3', q:'Cone silo — r=3m, h=4m, context', a: ans?.c3 || '(not saved)'},
     {num:'C4', q:'Find and correct student error', a: ans?.c4 || '(not saved)'},
   ];
@@ -1810,13 +1840,13 @@ function downloadPDF() {
     doc.setFont('helvetica','bold'); doc.setTextColor(50,50,80);
     doc.text(`${row.num} [${scoreVal}] — ${row.q}`, margin, y); y += lh;
     doc.setFont('helvetica','normal'); doc.setTextColor(80,80,80);
-    doc.splitTextToSize('  ' + row.a, colW-4).forEach(l => {
+    doc.splitTextToSize('  ' + clean(row.a), colW-4).forEach(l => {
       if (y > 270) { doc.addPage(); y = 20; }
       doc.text(l, margin, y); y += lh;
     });
     if (ai && ai[row.num.toLowerCase()]?.feedback) {
       doc.setFont('helvetica','italic'); doc.setTextColor(80,50,150);
-      doc.splitTextToSize('  AI feedback: ' + ai[row.num.toLowerCase()].feedback, colW-4).forEach(l => {
+      doc.splitTextToSize('  Teacher Feedback: ' + clean(ai[row.num.toLowerCase()].feedback), colW-4).forEach(l => {
         if (y > 270) { doc.addPage(); y = 20; }
         doc.text(l, margin, y); y += lh;
       });
